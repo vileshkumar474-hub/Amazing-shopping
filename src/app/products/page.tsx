@@ -102,11 +102,10 @@ function ProductsPageContent() {
   );
 }
 
-// The main export is a Server Component that uses Suspense.
 export default function ProductsPage() {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <ProductsPageContent />
-    </Suspense>
-  )
-}
+    return (
+      <Suspense fallback={<div>Loading...</div>}>
+        <ProductsPageContent />
+      </Suspense>
+    );
+  }
