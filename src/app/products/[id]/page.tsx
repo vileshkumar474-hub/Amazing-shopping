@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import { notFound } from 'next/navigation';
+import { notFound, useRouter } from 'next/navigation';
 import { Star, Minus, Plus, ShoppingCart, CreditCard } from 'lucide-react';
 
 import { getProductById } from '@/lib/data';
@@ -20,6 +20,7 @@ type ProductPageProps = {
 export default function ProductPage({ params }: ProductPageProps) {
   const { dispatch } = useCart();
   const { toast } = useToast();
+  const router = useRouter();
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState<string | undefined>();
 
@@ -48,6 +49,20 @@ export default function ProductPage({ params }: ProductPageProps) {
       title: 'Added to Cart',
       description: `${quantity} x ${product.name} added to your cart.`,
     });
+  };
+
+  const handleBuyNow = () => {
+     if (product.sizes && product.sizes.length > 0 && !selectedSize) {
+      toast({
+        variant: 'destructive',
+        title: 'Please select a size',
+        description: 'You must select a size before proceeding to checkout.',
+      });
+      return;
+    }
+    dispatch({ type: 'CLEAR_CART' });
+    dispatch({ type: 'ADD_ITEM', payload: { product, quantity } });
+    router.push('/checkout');
   };
 
   return (
@@ -164,7 +179,7 @@ export default function ProductPage({ params }: ProductPageProps) {
               <ShoppingCart className="mr-2" />
               Add to Cart
             </Button>
-             <Button variant="outline" size="lg">
+             <Button onClick={handleBuyNow} variant="outline" size="lg">
               <CreditCard className="mr-2" />
               Buy Now
             </Button>
