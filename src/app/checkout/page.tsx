@@ -56,11 +56,11 @@ export default function CheckoutPage() {
 
     const options = {
       key: RAZORPAY_KEY_ID,
-      name: 'ShopSphere',
+      name: 'Amazon.in',
       currency: order.currency,
       amount: order.amount,
       order_id: order.id,
-      description: 'Your ShopSphere Purchase',
+      description: 'Your Amazon.in Purchase',
       handler: function (response: any) {
         toast({
           title: 'Payment Successful!',
@@ -70,7 +70,7 @@ export default function CheckoutPage() {
         router.push(`/orders/${order.id}`);
       },
       prefill: {
-        name: user?.displayName || 'ShopSphere User',
+        name: user?.displayName || 'Amazon User',
         email: user?.email || '',
       },
       theme: {

@@ -34,7 +34,7 @@ export default function AuthForm() {
     <Card className="w-full max-w-sm">
       <CardHeader className="text-center">
         <Logo className="mb-4 justify-center" />
-        <CardTitle className="text-2xl">Welcome to ShopSphere</CardTitle>
+        <CardTitle className="text-2xl">Welcome to Amazon.in</CardTitle>
         <CardDescription>
           Sign in or create an account to continue.
         </CardDescription>

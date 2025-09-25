@@ -19,7 +19,7 @@ export default function Chatbot() {
   const [messages, setMessages] = useState<Message[]>([
     {
       sender: 'bot',
-      text: "Hello! I'm your friendly ShopSphere assistant. How can I help you with products, orders, or your account today?",
+      text: "Hello! I'm your friendly Amazon.in assistant. How can I help you with products, orders, or your account today?",
     },
   ]);
   const [inputValue, setInputValue] = useState('');
@@ -71,7 +71,7 @@ export default function Chatbot() {
           <header className="flex items-center justify-between border-b bg-muted/50 p-4">
             <div className="flex items-center gap-3">
               <Bot className="h-6 w-6 text-primary" />
-              <h3 className="text-lg font-semibold">ShopSphere Support</h3>
+              <h3 className="text-lg font-semibold">Amazon.in Support</h3>
             </div>
             <Button variant="ghost" size="icon" onClick={() => setIsOpen(false)} aria-label="Close chat">
               <X className="h-5 w-5" />
