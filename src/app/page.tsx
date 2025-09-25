@@ -95,7 +95,7 @@ export default function Home() {
               </p>
               <Button asChild className="bg-accent text-accent-foreground hover:bg-accent/90">
                 <a
-                  href="https://www.amazon.in/s?k=bra+set+for+women"
+                  href="https://www.amazon.in/lingerie-sets/b?ie=UTF8&node=1968480031"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
