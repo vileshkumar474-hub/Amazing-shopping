@@ -298,6 +298,16 @@ export const orders: Order[] = [
         { id: 'prod-6', name: 'Comfortable White Sneakers', price: 2500, quantity: 1, imageId: 'prod-6' },
         { id: 'prod-7', name: 'Minimalist Gold Necklace Set', price: 1500, quantity: 1, imageId: 'prod-7' },
     ]
+  },
+  {
+    id: 'order_PUZXoAvmx0KYQ6',
+    date: '2024-07-30',
+    total: 3449,
+    status: 'Processing',
+    items: [
+        { id: 'prod-1', name: 'Stylish Blue Dress', price: 2999, quantity: 1, imageId: 'prod-1' },
+        { id: 'diwali-2', name: 'Hand-Painted Diya Set', price: 449, quantity: 1, imageId: 'diwali-2' },
+    ]
   }
 ];
 

@@ -6,6 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { CheckCircle, Circle, Package, Truck } from 'lucide-react';
 import { cn } from '@/lib/utils';
+import { use } from 'react';
 
 type OrderPageProps = {
   params: { id: string };
@@ -13,12 +14,15 @@ type OrderPageProps = {
 
 const statusSteps = ['Processing', 'Shipped', 'Delivered'];
 
-export default function OrderPage({ params }: OrderPageProps) {
+export default function OrderPage({ params: paramsPromise }: OrderPageProps) {
+  const params = use(Promise.resolve(paramsPromise));
   const order = getOrderById(params.id);
 
   if (!order) {
     notFound();
   }
+
+  const orderIdSuffix = order.id.startsWith('order_') ? order.id.substring(6) : order.id.split('-')[1] || order.id;
 
   const currentStatusIndex = statusSteps.indexOf(order.status);
 
@@ -26,7 +30,7 @@ export default function OrderPage({ params }: OrderPageProps) {
     <div className="container mx-auto px-4 py-12">
       <div className="mx-auto max-w-4xl">
         <h1 className="mb-2 text-3xl font-bold">Order Details</h1>
-        <p className="mb-8 text-muted-foreground">Order #{order.id.split('-')[1]} &bull; Placed on {new Date(order.date).toLocaleDateString()}</p>
+        <p className="mb-8 text-muted-foreground">Order #{orderIdSuffix} &bull; Placed on {new Date(order.date).toLocaleDateString()}</p>
         
         <Card className="mb-8">
             <CardHeader>

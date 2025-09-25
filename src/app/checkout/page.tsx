@@ -67,7 +67,7 @@ export default function CheckoutPage() {
           description: `Payment ID: ${response.razorpay_payment_id}`,
         });
         dispatch({ type: 'CLEAR_CART' });
-        router.push(`/orders/order-${order.id.slice(-5)}`);
+        router.push(`/orders/${order.id}`);
       },
       prefill: {
         name: user?.displayName || 'ShopSphere User',
