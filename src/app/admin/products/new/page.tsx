@@ -9,8 +9,9 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
-import { products } from '@/lib/data';
+import { products }from '@/lib/data';
 import { useToast } from '@/hooks/use-toast';
+import { PlaceHolderImages }from '@/lib/placeholder-images';
 
 const sizes = ['30', '32', '34', '36', '38', '40', '42', 'S', 'M', 'L', 'XL'];
 
@@ -18,6 +19,7 @@ export default function AdminProductNewPage() {
   const router = useRouter();
   const { toast } = useToast();
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
+  const [imageFiles, setImageFiles] = useState<FileList | null>(null);
 
   const handleSizeChange = (size: string, checked: boolean) => {
     if (checked) {
@@ -30,8 +32,14 @@ export default function AdminProductNewPage() {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
+    const newProductId = `prod-${products.length + 1}`;
+    
+    // In a real app, you would upload the image and get a URL.
+    // For now, we'll just pick a random placeholder.
+    const newImageId = `prod-${(products.length % 16) + 1}`;
+
     const newProduct = {
-      id: `prod-${products.length + 1}`,
+      id: newProductId,
       name: formData.get('name') as string,
       description: formData.get('description') as string,
       price: Number(formData.get('price')),
@@ -41,7 +49,8 @@ export default function AdminProductNewPage() {
       sizes: selectedSizes,
       weight: Number(formData.get('weight')),
       manufacturer: formData.get('manufacturer') as string,
-      imageId: `prod-${products.length + 1}`, // Placeholder for now
+      imageId: newImageId,
+      images: [newImageId],
       rating: 0,
       reviewCount: 0,
       featured: false,
@@ -80,7 +89,12 @@ export default function AdminProductNewPage() {
           <Card>
             <CardHeader><CardTitle>Images (up to 6)</CardTitle></CardHeader>
             <CardContent>
-              <Input type="file" multiple accept="image/*" />
+              <Input 
+                type="file" 
+                multiple 
+                accept="image/*"
+                onChange={(e) => setImageFiles(e.target.files)}
+              />
               {/* Image previews would go here */}
             </CardContent>
           </Card>
