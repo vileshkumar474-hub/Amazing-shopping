@@ -1,9 +1,9 @@
 {
   "placeholderImages": [
     {
-      "id": "hero-1",
-      "description": "Boxes from an online order delivered to a front door.",
-      "imageUrl": "https://images.unsplash.com/photo-1599057419102-60d3f76906a5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxvbmxpbmUlMjBzaG9wcGluZyUyMGRlbGl2ZXJ5fGVufDB8fHx8MTc1OTQ2MzE4N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "id": "hero-2",
+      "description": "A vibrant collage of various products available on an e-commerce website.",
+      "imageUrl": "https://images.unsplash.com/photo-1555529669-e69e7aa0ba9a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxvbmxpbmUlMjBzaG9wcGluZyUyMHByb2R1Y3RzfGVufDB8fHx8MTc2MDM0NzExN3ww&ixlib=rb-4.1.0&q=80&w=1080",
       "imageHint": "online shopping"
     },
     {
@@ -129,13 +129,13 @@
     {
       "id": "user-img-2",
       "description": "Profile image for another user.",
-      "imageUrl": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxwcm9maWxlJTIwcGljdHVyZXxlbnwwfHx8fDE3NTk0MzU4MTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxwcm9maWxlJTIwcGljdHVyZXxlbnwwfHx8fDE3NTk0MzU4MTB8MA&ixlibrb-4.1.0&q=80&w=1080",
       "imageHint": "profile picture"
     },
     {
       "id": "user-img-3",
       "description": "Profile image for a third user.",
-      "imageUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxwcm9maWxlJTIwcGljdHVyZXxlbnwwfHx8fDE3NTk0MzU4MTB8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageUrl": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxwcm9maWxlJTIwcGljdHVyZXxlbnwwfHx8fDE3NTk0MzU4MTB8MA&ixlib.rb-4.1.0&q=80&w=1080",
       "imageHint": "profile picture"
     }
   ]

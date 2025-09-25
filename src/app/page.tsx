@@ -10,7 +10,7 @@ import RecommendedProducts from '@/components/products/RecommendedProducts';
 import { Suspense } from 'react';
 
 export default function Home() {
-  const heroImage = PlaceHolderImages.find((img) => img.id === 'hero-1');
+  const heroImage = PlaceHolderImages.find((img) => img.id === 'hero-2');
   const featuredProducts = getFeaturedProducts();
   const sponsoredImage = PlaceHolderImages.find((img) => img.id === 'prod-14');
 
