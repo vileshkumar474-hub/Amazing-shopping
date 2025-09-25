@@ -133,6 +133,39 @@ export const products: Product[] = [
     reviewCount: 80,
     featured: false,
   },
+  {
+    id: 'prod-13',
+    name: 'Push-up Bra & Panty Set',
+    description: 'A stunning push-up bra and panty set designed to enhance your natural shape. Made with soft lace and microfiber.',
+    price: 2499,
+    category: 'Bra & Panty Sets',
+    imageId: 'prod-13',
+    rating: 4.8,
+    reviewCount: 110,
+    featured: false,
+  },
+  {
+    id: 'prod-14',
+    name: 'Lace Bralette & Thong Set',
+    description: 'A delicate and comfortable lace bralette paired with a matching thong. Perfect for everyday luxury.',
+    price: 1999,
+    category: 'Bra & Panty Sets',
+    imageId: 'prod-14',
+    rating: 4.7,
+    reviewCount: 95,
+    featured: true,
+  },
+  {
+    id: 'prod-15',
+    name: 'Bikini Style Bra & Panty',
+    description: 'A classic bikini-style bra and panty set in a vibrant color. Offers great comfort and support.',
+    price: 1799,
+    category: 'Bra & Panty Sets',
+    imageId: 'prod-15',
+    rating: 4.6,
+    reviewCount: 85,
+    featured: false,
+  }
 ];
 
 export const orders: Order[] = [
