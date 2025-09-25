@@ -18,29 +18,22 @@ type ProductPageProps = {
   params: { id: string };
 };
 
-function ProductPageComponent({ params: paramsPromise }: ProductPageProps) {
+function ProductPageComponent({ params }: ProductPageProps) {
   const { dispatch } = useCart();
   const { toast } = useToast();
   const router = useRouter();
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState<string | undefined>();
   const [product, setProduct] = useState<Product | null>(null);
-  const [params, setParams] = useState<ProductPageProps['params'] | null>(null);
 
   useEffect(() => {
-    Promise.resolve(paramsPromise).then(setParams);
-  }, [paramsPromise]);
-
-  useEffect(() => {
-    if (params) {
-      const foundProduct = getProductById(params.id);
-      if (foundProduct) {
-        setProduct(foundProduct);
-      } else {
-        notFound();
-      }
+    const foundProduct = getProductById(params.id);
+    if (foundProduct) {
+      setProduct(foundProduct);
+    } else {
+      notFound();
     }
-  }, [params]);
+  }, [params.id]);
 
   const productImages = product?.images ? PlaceHolderImages.filter(p => product.images?.includes(p.id)) : [];
   const initialImage = product ? PlaceHolderImages.find(p => p.id === product.imageId) : undefined;
@@ -73,7 +66,7 @@ function ProductPageComponent({ params: paramsPromise }: ProductPageProps) {
   };
 
   const handleBuyNow = () => {
-     if (product.sizes && product.sizes.length > 0 && !selectedSize) {
+    if (product.sizes && product.sizes.length > 0 && !selectedSize) {
       toast({
         variant: 'destructive',
         title: 'Please select a size',
@@ -81,9 +74,26 @@ function ProductPageComponent({ params: paramsPromise }: ProductPageProps) {
       });
       return;
     }
-    dispatch({ type: 'CLEAR_CART' });
-    dispatch({ type: 'ADD_ITEM', payload: { product, quantity } });
-    router.push('/checkout');
+
+    const upiId = '9711837666-2@axl';
+    const amount = product.price * quantity;
+    const payeeName = 'Amazon.in'; // Or the actual seller name
+    const transactionNote = `Payment for ${product.name}`;
+
+    const upiUrl = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(
+      payeeName
+    )}&am=${amount.toFixed(2)}&cu=INR&tn=${encodeURIComponent(
+      transactionNote
+    )}`;
+
+    // Open the UPI payment link
+    window.location.href = upiUrl;
+
+    // Optional: You could show a toast to inform the user
+    toast({
+      title: 'Redirecting to UPI app',
+      description: 'Please complete the payment in your UPI app.',
+    });
   };
 
   return (
