@@ -2,7 +2,7 @@ import { getPersonalizedRecommendations } from '@/ai/flows/personalized-product-
 import ProductCarousel from '@/components/products/ProductCarousel';
 import ProductGrid from '@/components/products/ProductGrid';
 import { Button } from '@/components/ui/button';
-import { getFeaturedProducts, getProductsByIds, products } from '@/lib/data';
+import { getFeaturedProducts, getProductsByIds } from '@/lib/data';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import type { Product } from '@/lib/types';
 import { ArrowRight, ShoppingBag } from 'lucide-react';
@@ -20,9 +20,13 @@ async function RecommendedProducts() {
     });
     recommendedProducts = getProductsByIds(recommendations.productIds);
   } catch (error) {
-    console.error('Error fetching recommendations:', error);
-    // Fallback to a default set of products if AI fails
-    recommendedProducts = products.slice(4, 10);
+    // Fallback to featured products if AI fails
+    recommendedProducts = getFeaturedProducts();
+  }
+
+  // If recommendations are empty for any reason, use featured products
+  if (recommendedProducts.length === 0) {
+    recommendedProducts = getFeaturedProducts();
   }
 
   return <ProductCarousel products={recommendedProducts} />;
