@@ -14,6 +14,7 @@ export const products: Product[] = [
     reviewCount: 120,
     featured: true,
     sizes: ['S', 'M', 'L', 'XL'],
+    images: ['prod-1'],
   },
   {
     id: 'prod-2',
@@ -28,6 +29,7 @@ export const products: Product[] = [
     reviewCount: 88,
     featured: false,
     sizes: ['6', '7', '8', '9'],
+    images: ['prod-2'],
   },
   {
     id: 'prod-3',
@@ -41,6 +43,7 @@ export const products: Product[] = [
     rating: 4.7,
     reviewCount: 150,
     featured: true,
+    images: ['prod-3'],
   },
   {
     id: 'prod-4',
@@ -55,6 +58,7 @@ export const products: Product[] = [
     reviewCount: 75,
     featured: false,
     sizes: ['S', 'M', 'L'],
+    images: ['prod-4'],
   },
   {
     id: 'prod-5',
@@ -69,6 +73,7 @@ export const products: Product[] = [
     reviewCount: 230,
     featured: true,
     sizes: ['S', 'M', 'L', 'XL'],
+    images: ['prod-5'],
   },
   {
     id: 'prod-6',
@@ -83,6 +88,7 @@ export const products: Product[] = [
     reviewCount: 180,
     featured: false,
     sizes: ['6', '7', '8', '9', '10'],
+    images: ['prod-6'],
   },
   {
     id: 'prod-7',
@@ -96,6 +102,7 @@ export const products: Product[] = [
     rating: 4.7,
     reviewCount: 95,
     featured: false,
+    images: ['prod-7'],
   },
   {
     id: 'prod-8',
@@ -109,6 +116,7 @@ export const products: Product[] = [
     rating: 4.3,
     reviewCount: 60,
     featured: false,
+    images: ['prod-8'],
   },
   {
     id: 'prod-9',
@@ -122,6 +130,7 @@ export const products: Product[] = [
     rating: 4.8,
     reviewCount: 110,
     featured: true,
+    images: ['prod-9'],
   },
   {
     id: 'prod-10',
@@ -136,6 +145,7 @@ export const products: Product[] = [
     reviewCount: 140,
     featured: false,
     sizes: ['S', 'M', 'L'],
+    images: ['prod-10'],
   },
   {
     id: 'prod-11',
@@ -150,6 +160,7 @@ export const products: Product[] = [
     reviewCount: 90,
     featured: false,
     sizes: ['28', '30', '32', '34'],
+    images: ['prod-11'],
   },
   {
     id: 'prod-12',
@@ -163,6 +174,7 @@ export const products: Product[] = [
     rating: 4.7,
     reviewCount: 80,
     featured: false,
+    images: ['prod-12'],
   },
   {
     id: 'prod-13',
@@ -238,6 +250,7 @@ export const products: Product[] = [
     reviewCount: 50,
     featured: true,
     sizes: ['S', 'M', 'L', 'XL'],
+    images: ['diwali-1'],
   },
   {
     id: 'diwali-2',
@@ -252,6 +265,7 @@ export const products: Product[] = [
     rating: 4.9,
     reviewCount: 85,
     featured: true,
+    images: ['diwali-2'],
   },
   {
     id: 'diwali-3',
@@ -266,6 +280,7 @@ export const products: Product[] = [
     rating: 4.7,
     reviewCount: 40,
     featured: false,
+    images: ['diwali-3'],
   },
 ];
 
@@ -316,3 +331,5 @@ export const getProductById = (id: string): Product | undefined => products.find
 export const getProductsByIds = (ids: string[]): Product[] => products.filter(p => ids.includes(p.id));
 export const getOrderById = (id: string): Order | undefined => orders.find(o => o.id === id);
 export const getFeaturedProducts = (): Product[] => products.filter(p => p.featured);
+
+    
