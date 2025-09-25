@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
-import { Star, Minus, Plus, ShoppingCart } from 'lucide-react';
+import { Star, Minus, Plus, ShoppingCart, CreditCard } from 'lucide-react';
 
 import { getProductById } from '@/lib/data';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
@@ -88,6 +88,7 @@ export default function ProductPage({ params }: ProductPageProps) {
           <div>
             <p className="font-semibold text-primary">{product.category}</p>
             <h1 className="text-3xl font-bold tracking-tight md:text-4xl">{product.name}</h1>
+            {product.brand && <p className="text-lg text-muted-foreground">by {product.brand}</p>}
           </div>
           <div className="flex items-center gap-2">
             <div className="flex items-center">
@@ -108,6 +109,14 @@ export default function ProductPage({ params }: ProductPageProps) {
           <p className="text-3xl font-bold text-primary">₹{product.price.toLocaleString()}</p>
 
           <p className="text-base text-muted-foreground">{product.description}</p>
+
+          {product.tags && product.tags.length > 0 && (
+            <div className="flex flex-wrap gap-2">
+              {product.tags.map(tag => (
+                <Badge key={tag} variant="secondary">{tag}</Badge>
+              ))}
+            </div>
+          )}
           
           <Separator />
           
@@ -150,11 +159,17 @@ export default function ProductPage({ params }: ProductPageProps) {
               </Button>
             </div>
           </div>
+          <div className="flex flex-col sm:flex-row gap-4">
+            <Button onClick={handleAddToCart} size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
+              <ShoppingCart className="mr-2" />
+              Add to Cart
+            </Button>
+             <Button variant="outline" size="lg">
+              <CreditCard className="mr-2" />
+              Buy Now
+            </Button>
+          </div>
 
-          <Button onClick={handleAddToCart} size="lg" className="w-full bg-accent text-accent-foreground hover:bg-accent/90 sm:w-auto">
-            <ShoppingCart className="mr-2" />
-            Add to Cart
-          </Button>
         </div>
       </div>
     </div>

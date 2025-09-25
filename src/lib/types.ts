@@ -12,6 +12,8 @@ export type Product = {
   sizes?: string[]; // Available sizes
   weight?: number; // in grams
   manufacturer?: string;
+  brand?: string;
+  tags?: string[];
 };
 
 export type CartItem = {

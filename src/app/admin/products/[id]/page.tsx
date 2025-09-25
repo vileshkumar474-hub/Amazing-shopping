@@ -11,7 +11,8 @@ import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
 
-const sizes = ['30', '32', '34', '36', '38', '40', '42'];
+const sizes = ['30', '32', '34', '36', '38', '40', '42', 'S', 'M', 'L', 'XL'];
+
 
 export default function AdminProductEditPage({ params }: { params: { id: string } }) {
   const product = getProductById(params.id);
@@ -71,6 +72,14 @@ export default function AdminProductEditPage({ params }: { params: { id: string 
                                 <SelectItem value="Bra & Panty Sets">Bra & Panty Sets</SelectItem>
                             </SelectContent>
                         </Select>
+                    </div>
+                    <div className="space-y-2">
+                        <Label htmlFor="brand">Brand Name</Label>
+                        <Input id="brand" defaultValue={product.brand} />
+                    </div>
+                    <div className="space-y-2">
+                        <Label htmlFor="tags">Tags (comma-separated)</Label>
+                        <Input id="tags" defaultValue={product.tags?.join(', ')} />
                     </div>
                      <div className="space-y-2">
                         <Label>Sizes</Label>
