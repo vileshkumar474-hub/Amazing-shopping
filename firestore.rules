@@ -1,0 +1,131 @@
+/**
+ * @fileoverview Firestore Security Rules for ShopSphere.
+ *
+ * Core Philosophy:
+ * This ruleset enforces a strict user-ownership model for personal data (users, shopping carts, orders)
+ * and allows public read access to product information. All write operations on user-owned data
+ * are restricted to the authenticated user.
+ *
+ * Data Structure:
+ * - /users/{userId}: Stores user profile information, secured with path-based ownership.
+ * - /products/{productId}: Stores product information; publicly readable.
+ * - /users/{userId}/shoppingCart/{shoppingCartId}: Stores a user's shopping cart, secured with path-based ownership.
+ * - /users/{userId}/orders/{orderId}: Stores a user's order history, secured with path-based ownership.
+ *
+ * Key Security Decisions:
+ * - Users can only access their own profile, shopping cart, and order history.
+ * - Product information is publicly readable.
+ * - User listing is disallowed.
+ * - Authorization is based on verified `request.auth` state.
+ * - Data validation is relaxed to allow for rapid prototyping.
+ */
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    /**
+     * @description Controls access to user profile documents.
+     * @path /users/{userId}
+     * @allow (create) User with UID 'user_abc' can create their own profile document with id 'user_abc'.
+     * @allow (get) User with UID 'user_abc' can read their own profile document.
+     * @allow (update) User with UID 'user_abc' can update their own profile document.
+     * @allow (delete) User with UID 'user_abc' can delete their own profile document.
+     * @deny (create) User with UID 'user_xyz' cannot create a profile document with id 'user_abc'.
+     * @principle Enforces document ownership for writes.
+     */
+    match /users/{userId} {
+      function isSignedIn() {
+        return request.auth != null;
+      }
+
+      function isOwner(userId) {
+        return request.auth.uid == userId;
+      }
+
+      function isExistingOwner(userId) {
+        return isOwner(userId) && resource != null;
+      }
+
+      allow get: if isSignedIn() && isOwner(userId);
+      allow list: if false;
+      allow create: if isSignedIn() && isOwner(userId) && request.resource.data.id == userId;
+      allow update: if isExistingOwner(userId) && request.resource.data.id == resource.data.id;
+      allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description Controls access to product documents.
+     * @path /products/{productId}
+     * @allow (get) Any user can read product information.
+     * @allow (list) Any user can list products.
+     * @deny (create) No one can create product documents without authentication (TODO: Define admin role).
+     * @deny (update) No one can update product documents without authentication (TODO: Define admin role).
+     * @deny (delete) No one can delete product documents without authentication (TODO: Define admin role).
+     * @principle Allows public read access to product information.
+     */
+    match /products/{productId} {
+      allow get, list: if true;
+      allow create, update, delete: if false; // TODO: Add admin role check.
+    }
+
+    /**
+     * @description Controls access to shopping cart documents for a specific user.
+     * @path /users/{userId}/shoppingCart/{shoppingCartId}
+     * @allow (create) User with UID 'user_abc' can create their own shopping cart with userId 'user_abc'.
+     * @allow (get) User with UID 'user_abc' can read their own shopping cart.
+     * @allow (update) User with UID 'user_abc' can update their own shopping cart.
+     * @allow (delete) User with UID 'user_abc' can delete their own shopping cart.
+     * @deny (create) User with UID 'user_xyz' cannot create a shopping cart for userId 'user_abc'.
+     * @principle Enforces document ownership for writes within the user's data tree.
+     */
+    match /users/{userId}/shoppingCart/{shoppingCartId} {
+      function isSignedIn() {
+        return request.auth != null;
+      }
+
+      function isOwner(userId) {
+        return request.auth.uid == userId;
+      }
+
+      function isExistingOwner(userId) {
+        return isOwner(userId) && resource != null;
+      }
+
+      allow get: if isSignedIn() && isOwner(userId);
+      allow list: if isSignedIn() && isOwner(userId);
+      allow create: if isSignedIn() && isOwner(userId) && request.resource.data.userId == userId;
+      allow update: if isExistingOwner(userId) && request.resource.data.userId == resource.data.userId;
+      allow delete: if isExistingOwner(userId);
+    }
+
+    /**
+     * @description Controls access to order documents for a specific user.
+     * @path /users/{userId}/orders/{orderId}
+     * @allow (create) User with UID 'user_abc' can create their own order with userId 'user_abc'.
+     * @allow (get) User with UID 'user_abc' can read their own order.
+     * @allow (update) User with UID 'user_abc' can update their own order.
+     * @allow (delete) User with UID 'user_abc' can delete their own order.
+     * @deny (create) User with UID 'user_xyz' cannot create an order for userId 'user_abc'.
+     * @principle Enforces document ownership for writes within the user's data tree.
+     */
+    match /users/{userId}/orders/{orderId} {
+      function isSignedIn() {
+        return request.auth != null;
+      }
+
+      function isOwner(userId) {
+        return request.auth.uid == userId;
+      }
+
+      function isExistingOwner(userId) {
+        return isOwner(userId) && resource != null;
+      }
+
+      allow get: if isSignedIn() && isOwner(userId);
+      allow list: if isSignedIn() && isOwner(userId);
+      allow create: if isSignedIn() && isOwner(userId) && request.resource.data.userId == userId;
+      allow update: if isExistingOwner(userId) && request.resource.data.userId == resource.data.userId;
+      allow delete: if isExistingOwner(userId);
+    }
+  }
+}

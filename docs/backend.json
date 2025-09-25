@@ -1,0 +1,257 @@
+{
+  "entities": {
+    "User": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "User",
+      "type": "object",
+      "description": "Represents a user of the ShopSphere application.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the user entity."
+        },
+        "googleId": {
+          "type": "string",
+          "description": "The unique identifier provided by Google for the user."
+        },
+        "firstName": {
+          "type": "string",
+          "description": "The first name of the user."
+        },
+        "lastName": {
+          "type": "string",
+          "description": "The last name of the user."
+        },
+        "email": {
+          "type": "string",
+          "description": "The email address of the user.",
+          "format": "email"
+        },
+        "profileImageUrl": {
+          "type": "string",
+          "description": "URL of the user's profile image.",
+          "format": "uri"
+        }
+      },
+      "required": [
+        "id",
+        "googleId",
+        "firstName",
+        "lastName",
+        "email"
+      ]
+    },
+    "Product": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Product",
+      "type": "object",
+      "description": "Represents a product available in the ShopSphere store.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the product entity."
+        },
+        "name": {
+          "type": "string",
+          "description": "The name of the product."
+        },
+        "description": {
+          "type": "string",
+          "description": "A detailed description of the product."
+        },
+        "price": {
+          "type": "number",
+          "description": "The price of the product."
+        },
+        "imageUrl": {
+          "type": "string",
+          "description": "URL of the product image.",
+          "format": "uri"
+        },
+        "category": {
+          "type": "string",
+          "description": "The category of the product."
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "description",
+        "price",
+        "imageUrl",
+        "category"
+      ]
+    },
+    "ShoppingCart": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "ShoppingCart",
+      "type": "object",
+      "description": "Represents the shopping cart for a user.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the shopping cart."
+        },
+        "userId": {
+          "type": "string",
+          "description": "Reference to User. (Relationship: User 1:1 ShoppingCart)"
+        },
+        "productIds": {
+          "type": "array",
+          "description": "References to Products. (Relationship: ShoppingCart 1:N Product)",
+          "items": {
+            "type": "string"
+          }
+        },
+        "quantities": {
+          "type": "array",
+          "description": "Quantities of the Products. (Relationship: ShoppingCart 1:N Product)",
+          "items": {
+            "type": "number"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "productIds",
+        "quantities"
+      ]
+    },
+    "Order": {
+      "$schema": "http://json-schema.org/draft-07/schema#",
+      "title": "Order",
+      "type": "object",
+      "description": "Represents an order placed by a user.",
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for the order."
+        },
+        "userId": {
+          "type": "string",
+          "description": "Reference to User. (Relationship: User 1:N Order)"
+        },
+        "orderDate": {
+          "type": "string",
+          "description": "The date and time the order was placed.",
+          "format": "date-time"
+        },
+        "totalAmount": {
+          "type": "number",
+          "description": "The total amount of the order."
+        },
+        "status": {
+          "type": "string",
+          "description": "The current status of the order (e.g., 'Pending', 'Shipped', 'Delivered')."
+        },
+        "productIds": {
+          "type": "array",
+          "description": "References to Products. (Relationship: Order 1:N Product)",
+          "items": {
+            "type": "string"
+          }
+        },
+        "quantities": {
+          "type": "array",
+          "description": "Quantities of the Products. (Relationship: Order 1:N Product)",
+          "items": {
+            "type": "number"
+          }
+        }
+      },
+      "required": [
+        "id",
+        "userId",
+        "orderDate",
+        "totalAmount",
+        "status",
+        "productIds",
+        "quantities"
+      ]
+    }
+  },
+  "auth": {
+    "providers": [
+      "password",
+      "anonymous"
+    ]
+  },
+  "firestore": {
+    "structure": [
+      {
+        "path": "/users/{userId}",
+        "definition": {
+          "entityName": "User",
+          "schema": {
+            "$ref": "#/backend/entities/User"
+          },
+          "description": "Stores user profile information.  Uses path-based ownership for private user data.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user, corresponding to their Firebase Auth UID."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/products/{productId}",
+        "definition": {
+          "entityName": "Product",
+          "schema": {
+            "$ref": "#/backend/entities/Product"
+          },
+          "description": "Stores product information. Accessible for listing and reading by all users.",
+          "params": [
+            {
+              "name": "productId",
+              "description": "The unique identifier for the product."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/shoppingCart/{shoppingCartId}",
+        "definition": {
+          "entityName": "ShoppingCart",
+          "schema": {
+            "$ref": "#/backend/entities/ShoppingCart"
+          },
+          "description": "Stores the user's shopping cart.  Uses path-based ownership, so only the user can access their cart.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user."
+            },
+            {
+              "name": "shoppingCartId",
+              "description": "The unique identifier for the shopping cart."
+            }
+          ]
+        }
+      },
+      {
+        "path": "/users/{userId}/orders/{orderId}",
+        "definition": {
+          "entityName": "Order",
+          "schema": {
+            "$ref": "#/backend/entities/Order"
+          },
+          "description": "Stores order information for each user. Uses path-based ownership, so only the user can access their orders.",
+          "params": [
+            {
+              "name": "userId",
+              "description": "The unique identifier for the user."
+            },
+            {
+              "name": "orderId",
+              "description": "The unique identifier for the order."
+            }
+          ]
+        }
+      }
+    ],
+    "reasoning": "The Firestore structure is designed to support ShopSphere's e-commerce features, focusing on user accounts, product catalog, shopping carts, and order management. User data is stored in a dedicated collection (`/users/{userId}`) to ensure data privacy and security. Products are stored in a root-level collection (`/products`) for easy access and global availability. Shopping carts are maintained under each user's document (`/users/{userId}/shoppingCart`) to associate them directly with their respective users. Orders are also kept under the user's document (`/users/{userId}/orders/{orderId}`), enabling efficient retrieval of a user's order history.\n\n**Authorization Independence & DBAC:** The structure leverages path-based ownership for user-specific data (shopping carts and orders). This eliminates the need for complex `get()` calls in security rules.  Since users login with their google account using `request.auth.uid`, we can identify them to grant access to its data.\n\n**QAPs Support:** The product catalog is stored in a root collection, allowing for efficient listing and filtering of products without requiring complex security rules. User-specific data (shopping carts and orders) is stored under the respective user's document, enabling secure listing and management of this data."
+  }
+}
