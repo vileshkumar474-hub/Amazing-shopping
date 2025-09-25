@@ -8,7 +8,6 @@ import {
   CardHeader,
   CardTitle,
 } from '@/components/ui/card';
-import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import Logo from '../shared/Logo';
 import { useAuth } from '@/firebase';
@@ -36,7 +35,7 @@ export default function AuthForm() {
         <Logo className="mb-4 justify-center" />
         <CardTitle className="text-2xl">Welcome to Amazon.in</CardTitle>
         <CardDescription>
-          Sign in or create an account to continue.
+         Use your Google account to continue.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -62,7 +61,7 @@ export default function AuthForm() {
               d="M43.611 20.083H20v8h11.303c-1.649 4.657-6.08 8-11.303 8c-6.627 0-12-5.373-12-12s5.373-12 12-12c3.059 0 5.842 1.154 7.961 3.039L38.417 9.99C34.553 6.486 29.605 4.5 24 4.5C13.522 4.5 4.933 12.062 4.933 22.5s8.589 18 19.067 18c9.835 0 17.64-6.363 17.64-18.257c0-1.258-.122-2.483-.34-3.66z"
             />
           </svg>
-          Sign in with Google
+          Continue with Google
         </Button>
       </CardContent>
     </Card>
