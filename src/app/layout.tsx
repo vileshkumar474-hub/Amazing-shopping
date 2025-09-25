@@ -7,6 +7,7 @@ import Footer from '@/components/layout/Footer';
 import { CartProvider } from '@/context/CartProvider';
 import { Toaster } from '@/components/ui/toaster';
 import Chatbot from '@/components/shared/Chatbot';
+import { FirebaseClientProvider } from '@/firebase/client-provider';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-inter' });
 
@@ -28,15 +29,17 @@ export default function RootLayout({
           inter.variable
         )}
       >
-        <CartProvider>
-          <div className="relative flex min-h-dvh flex-col">
-            <Header />
-            <main className="flex-1">{children}</main>
-            <Footer />
-          </div>
-          <Chatbot />
-          <Toaster />
-        </CartProvider>
+        <FirebaseClientProvider>
+          <CartProvider>
+            <div className="relative flex min-h-dvh flex-col">
+              <Header />
+              <main className="flex-1">{children}</main>
+              <Footer />
+            </div>
+            <Chatbot />
+            <Toaster />
+          </CartProvider>
+        </FirebaseClientProvider>
       </body>
     </html>
   );

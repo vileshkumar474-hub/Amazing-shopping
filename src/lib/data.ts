@@ -1,4 +1,4 @@
-import type { Product, Order, User } from './types';
+import type { Product, Order } from './types';
 
 export const products: Product[] = [
   {
@@ -257,12 +257,6 @@ export const orders: Order[] = [
     ]
   }
 ];
-
-export const user: User = {
-  id: 'user-123',
-  name: 'Anjali Sharma',
-  email: 'anjali.sharma@example.com',
-};
 
 // Helper functions to query the mock data
 export const getProductById = (id: string): Product | undefined => products.find(p => p.id === id);
