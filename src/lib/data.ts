@@ -1,0 +1,180 @@
+import type { Product, Order, User } from './types';
+
+export const products: Product[] = [
+  {
+    id: 'prod-1',
+    name: 'Stylish Blue Dress',
+    description: 'A beautiful and stylish blue dress perfect for any occasion. Made from high-quality fabric.',
+    price: 2999,
+    category: 'Dresses',
+    imageId: 'prod-1',
+    rating: 4.5,
+    reviewCount: 120,
+    featured: true,
+  },
+  {
+    id: 'prod-2',
+    name: 'Elegant High Heels',
+    description: 'Elegant high-heeled shoes that add a touch of class to your outfit. Available in various sizes.',
+    price: 4500,
+    category: 'Shoes',
+    imageId: 'prod-2',
+    rating: 4.8,
+    reviewCount: 88,
+    featured: false,
+  },
+  {
+    id: 'prod-3',
+    name: 'Modern Leather Handbag',
+    description: 'A modern and spacious leather handbag. Perfect for daily use and carrying all your essentials.',
+    price: 3200,
+    category: 'Accessories',
+    imageId: 'prod-3',
+    rating: 4.7,
+    reviewCount: 150,
+    featured: true,
+  },
+  {
+    id: 'prod-4',
+    name: 'Floral Summer Skirt',
+    description: 'A chic floral print summer skirt. Lightweight and comfortable for warm weather.',
+    price: 1800,
+    category: 'Skirts',
+    imageId: 'prod-4',
+    rating: 4.4,
+    reviewCount: 75,
+    featured: false,
+  },
+  {
+    id: 'prod-5',
+    name: 'Classic Denim Jacket',
+    description: 'A timeless denim jacket that never goes out of style. A must-have for any wardrobe.',
+    price: 3500,
+    category: 'Jackets',
+    imageId: 'prod-5',
+    rating: 4.9,
+    reviewCount: 230,
+    featured: true,
+  },
+  {
+    id: 'prod-6',
+    name: 'Comfortable White Sneakers',
+    description: 'Versatile and comfortable white sneakers that go with almost any casual outfit.',
+    price: 2500,
+    category: 'Shoes',
+    imageId: 'prod-6',
+    rating: 4.6,
+    reviewCount: 180,
+    featured: false,
+  },
+  {
+    id: 'prod-7',
+    name: 'Minimalist Gold Necklace Set',
+    description: 'A beautiful set of three minimalist necklaces, plated in gold. Perfect for layering.',
+    price: 1500,
+    category: 'Accessories',
+    imageId: 'prod-7',
+    rating: 4.7,
+    reviewCount: 95,
+    featured: false,
+  },
+  {
+    id: 'prod-8',
+    name: 'Wide-Brimmed Sun Hat',
+    description: 'Stay protected from the sun in style with this fashionable wide-brimmed hat.',
+    price: 1200,
+    category: 'Accessories',
+    imageId: 'prod-8',
+    rating: 4.3,
+    reviewCount: 60,
+    featured: false,
+  },
+  {
+    id: 'prod-9',
+    name: 'Tortoise Shell Sunglasses',
+    description: 'Chic designer sunglasses with a classic tortoise shell frame. 100% UV protection.',
+    price: 2800,
+    category: 'Accessories',
+    imageId: 'prod-9',
+    rating: 4.8,
+    reviewCount: 110,
+    featured: true,
+  },
+  {
+    id: 'prod-10',
+    name: 'Cozy Cashmere Sweater',
+    description: 'Luxuriously soft and warm cashmere sweater. Perfect for chilly days.',
+    price: 7500,
+    category: 'Tops',
+    imageId: 'prod-10',
+    rating: 4.9,
+    reviewCount: 140,
+    featured: false,
+  },
+  {
+    id: 'prod-11',
+    name: 'High-Waisted Tailored Trousers',
+    description: 'Elegant high-waisted trousers, tailored for a perfect fit. Ideal for office or formal wear.',
+    price: 4200,
+    category: 'Trousers',
+    imageId: 'prod-11',
+    rating: 4.6,
+    reviewCount: 90,
+    featured: false,
+  },
+  {
+    id: 'prod-12',
+    name: 'Paisley Silk Scarf',
+    description: 'A beautiful silk scarf with an intricate paisley pattern. Adds a pop of color to any outfit.',
+    price: 1900,
+    category: 'Accessories',
+    imageId: 'prod-12',
+    rating: 4.7,
+    reviewCount: 80,
+    featured: false,
+  },
+];
+
+export const orders: Order[] = [
+  {
+    id: 'order-123',
+    date: '2023-10-26',
+    total: 7499,
+    status: 'Shipped',
+    items: [
+      { id: 'prod-1', name: 'Stylish Blue Dress', price: 2999, quantity: 1, imageId: 'prod-1' },
+      { id: 'prod-2', name: 'Elegant High Heels', price: 4500, quantity: 1, imageId: 'prod-2' },
+    ],
+  },
+  {
+    id: 'order-456',
+    date: '2023-10-20',
+    total: 3500,
+    status: 'Delivered',
+    items: [
+      { id: 'prod-5', name: 'Classic Denim Jacket', price: 3500, quantity: 1, imageId: 'prod-5' },
+    ],
+  },
+  {
+    id: 'order-789',
+    date: '2023-11-01',
+    total: 4000,
+    status: 'Processing',
+    items: [
+        { id: 'prod-6', name: 'Comfortable White Sneakers', price: 2500, quantity: 1, imageId: 'prod-6' },
+        { id: 'prod-7', name: 'Minimalist Gold Necklace Set', price: 1500, quantity: 1, imageId: 'prod-7' },
+    ]
+  }
+];
+
+export const user: User = {
+  id: 'user-123',
+  name: 'Anjali Sharma',
+  email: 'anjali.sharma@example.com',
+};
+
+// Helper functions to query the mock data
+export const getProductById = (id: string): Product | undefined => products.find(p => p.id === id);
+export const getProductsByIds = (ids: string[]): Product[] => products.filter(p => ids.includes(p.id));
+export const getOrderById = (id: string): Order | undefined => orders.find(o => o.id === id);
+export const getFeaturedProducts = (): Product[] => products.filter(p => p.featured);

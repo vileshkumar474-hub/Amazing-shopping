@@ -1,3 +1,100 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "hero-1",
+      "description": "A vibrant scene of a festival sale with people shopping.",
+      "imageUrl": "https://images.unsplash.com/photo-1696165333477-f85bd9a43072?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzaG9wcGluZyUyMGZlc3RpdmFsfGVufDB8fHx8MTc1ODc3NTczMHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "shopping festival"
+    },
+    {
+      "id": "prod-1",
+      "description": "A stylish woman's blue dress on a mannequin.",
+      "imageUrl": "https://images.unsplash.com/photo-1678319527201-afe74fb0b9e7?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxibHVlJTIwZHJlc3N8ZW58MHx8fHwxNzU4Nzc1NzMwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "blue dress"
+    },
+    {
+      "id": "prod-2",
+      "description": "Elegant high-heeled shoes.",
+      "imageUrl": "https://images.unsplash.com/photo-1596703263926-eb0762ee17e4?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxoaWdoJTIwaGVlbHN8ZW58MHx8fHwxNzU4NzUyNzE0fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "high heels"
+    },
+    {
+      "id": "prod-3",
+      "description": "A modern leather handbag.",
+      "imageUrl": "https://images.unsplash.com/photo-1575295912464-fcfd1186d11d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxsZWF0aGVyJTIwaGFuZGJhZ3xlbnwwfHx8fDE3NTg3MjExNTR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "leather handbag"
+    },
+    {
+      "id": "prod-4",
+      "description": "A chic floral print summer skirt.",
+      "imageUrl": "https://images.unsplash.com/photo-1654791188864-8fba3136d73c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxzdW1tZXIlMjBza2lydHxlbnwwfHx8fDE3NTg3MTQ3OTN8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "summer skirt"
+    },
+    {
+      "id": "prod-5",
+      "description": "A classic denim jacket.",
+      "imageUrl": "https://images.unsplash.com/photo-1533642128742-a542f568eb53?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxMHx8ZGVuaW0lMjBqYWNrZXR8ZW58MHx8fHwxNzU4Njg4NDYyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "denim jacket"
+    },
+    {
+      "id": "prod-6",
+      "description": "A comfortable pair of white sneakers.",
+      "imageUrl": "https://images.unsplash.com/photo-1597350584914-55bb62285896?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHx3aGl0ZSUyMHNuZWFrZXJzfGVufDB8fHx8MTc1ODcyMDEwNnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "white sneakers"
+    },
+    {
+      "id": "prod-7",
+      "description": "A set of gold-plated minimalist necklaces.",
+      "imageUrl": "https://images.unsplash.com/photo-1662434923031-b9bf1b6c10e2?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxnb2xkJTIwbmVja2xhY2VzfGVufDB8fHx8MTc1ODc3NTczMHww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "gold necklaces"
+    },
+    {
+      "id": "prod-8",
+      "description": "A fashionable wide-brimmed sun hat.",
+      "imageUrl": "https://images.unsplash.com/photo-1723205120440-833e58ff092a?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxzdW4lMjBoYXR8ZW58MHx8fHwxNzU4Nzc1NzMwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "sun hat"
+    },
+    {
+      "id": "prod-9",
+      "description": "Designer sunglasses with a tortoise shell frame.",
+      "imageUrl": "https://images.unsplash.com/photo-1722842530103-5cfb07d92578?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxkZXNpZ25lciUyMHN1bmdsYXNzZXN8ZW58MHx8fHwxNzU4NzA3Mzk2fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "designer sunglasses"
+    },
+    {
+      "id": "prod-10",
+      "description": "A cozy cashmere sweater.",
+      "imageUrl": "https://images.unsplash.com/photo-1677847208228-fe3c52feb441?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHxjYXNobWVyZSUyMHN3ZWF0ZXJ8ZW58MHx8fHwxNzU4NzE0MjE4fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "cashmere sweater"
+    },
+    {
+      "id": "prod-11",
+      "description": "High-waisted tailored trousers.",
+      "imageUrl": "https://images.unsplash.com/photo-1643960987246-3d728870f530?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHx0YWlsb3JlZCUyMHRyb3VzZXJzfGVufDB8fHx8MTc1ODcxNDAzMnww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "tailored trousers"
+    },
+    {
+      "id": "prod-12",
+      "description": "A silk scarf with a paisley pattern.",
+      "imageUrl": "https://images.unsplash.com/photo-1517472292914-9570a594783b?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw0fHxzaWxrJTIwc2NhcmZ8ZW58MHx8fHwxNzU4NzExNzMyfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "silk scarf"
+    },
+    {
+      "id": "prod-13",
+      "description": "A sporty crop top for workouts.",
+      "imageUrl": "https://images.unsplash.com/photo-1564640652841-cc6eebb51aca?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHxzcG9ydHklMjB0b3B8ZW58MHx8fHwxNzU4Nzc1NzMwfDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "sporty top"
+    },
+    {
+      "id": "prod-14",
+      "description": "Comfortable and stylish yoga pants.",
+      "imageUrl": "https://images.unsplash.com/photo-1599751449353-779b810ebb37?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwyfHx5b2dhJTIwcGFudHN8ZW58MHx8fHwxNzU4NzM1MDA1fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "yoga pants"
+    },
+    {
+      "id": "prod-15",
+      "description": "A beautiful wedding gown.",
+      "imageUrl": "https://images.unsplash.com/photo-1594816935907-1e8f03b98437?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw1fHx3ZWRkaW5nJTIwZ293bnxlbnwwfHx8fDE3NTg2ODU3Mjl8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "wedding gown"
+    }
+  ]
 }
