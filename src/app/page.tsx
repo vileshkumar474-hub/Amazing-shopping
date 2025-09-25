@@ -12,6 +12,7 @@ import { Suspense } from 'react';
 export default function Home() {
   const heroImage = PlaceHolderImages.find((img) => img.id === 'hero-1');
   const featuredProducts = getFeaturedProducts();
+  const sponsoredImage = PlaceHolderImages.find((img) => img.id === 'prod-14');
 
   return (
     <div className="flex flex-col">
@@ -23,7 +24,7 @@ export default function Home() {
             </h1>
             <p className="max-w-md text-lg text-primary-foreground/80">
               Unbeatable deals, endless choices. Your ultimate shopping
-              adventure starts now at ShopSphere.
+              adventure starts now at Amazon.in.
             </p>
             <div className="flex flex-wrap gap-4">
               <Button asChild size="lg" className="bg-accent text-accent-foreground hover:bg-accent/90">
@@ -65,6 +66,44 @@ export default function Home() {
             </p>
           </div>
           <ProductGrid products={featuredProducts} />
+        </div>
+      </section>
+
+      <section className="w-full bg-secondary/20 py-12 md:py-24">
+        <div className="container mx-auto">
+          <div className="grid grid-cols-1 items-center gap-8 rounded-lg bg-card p-8 shadow-md md:grid-cols-2">
+            <div className="relative h-80 w-full">
+              {sponsoredImage && (
+                <Image
+                  src={sponsoredImage.imageUrl}
+                  alt="Bra Set For Women Underwear"
+                  fill
+                  className="rounded-lg object-cover"
+                  data-ai-hint={sponsoredImage.imageHint}
+                />
+              )}
+            </div>
+            <div className="flex flex-col items-start gap-4">
+              <p className="text-sm font-semibold text-muted-foreground">
+                Sponsored
+              </p>
+              <h3 className="text-3xl font-bold tracking-tight">
+                Bra Set For Women Underwear
+              </h3>
+              <p className="text-lg text-muted-foreground">
+                Lowest prices on top brands.
+              </p>
+              <Button asChild className="bg-accent text-accent-foreground hover:bg-accent/90">
+                <a
+                  href="https://www.amazon.in/s?k=bra+set+for+women"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Shop on Amazon.in <ArrowRight className="ml-2" />
+                </a>
+              </Button>
+            </div>
+          </div>
         </div>
       </section>
 
