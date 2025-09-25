@@ -35,7 +35,7 @@ export default function AuthForm() {
         <Logo className="mb-4 justify-center" />
         <CardTitle className="text-2xl">Welcome to Amazon.in</CardTitle>
         <CardDescription>
-         Use your Google account to continue.
+         Sign in or create an account to continue
         </CardDescription>
       </CardHeader>
       <CardContent>
