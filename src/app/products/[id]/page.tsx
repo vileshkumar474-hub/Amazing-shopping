@@ -11,6 +11,7 @@ import { Button } from '@/components/ui/button';
 import { useCart } from '@/context/CartProvider';
 import { useToast } from '@/hooks/use-toast';
 import { Separator } from '@/components/ui/separator';
+import { Badge } from '@/components/ui/badge';
 
 type ProductPageProps = {
   params: { id: string };
@@ -20,6 +21,7 @@ export default function ProductPage({ params }: ProductPageProps) {
   const { dispatch } = useCart();
   const { toast } = useToast();
   const [quantity, setQuantity] = useState(1);
+  const [selectedSize, setSelectedSize] = useState<string | undefined>();
 
   const product = getProductById(params.id);
 
@@ -28,8 +30,19 @@ export default function ProductPage({ params }: ProductPageProps) {
   }
 
   const placeholder = PlaceHolderImages.find((p) => p.id === product.imageId);
+  const productImages = product.images ? PlaceHolderImages.filter(p => product.images?.includes(p.id)) : (placeholder ? [placeholder] : []);
+  const [mainImage, setMainImage] = useState(productImages[0] || placeholder);
+
 
   const handleAddToCart = () => {
+    if (product.sizes && product.sizes.length > 0 && !selectedSize) {
+      toast({
+        variant: 'destructive',
+        title: 'Please select a size',
+        description: 'You must select a size before adding to cart.',
+      });
+      return;
+    }
     dispatch({ type: 'ADD_ITEM', payload: { product, quantity } });
     toast({
       title: 'Added to Cart',
@@ -40,17 +53,35 @@ export default function ProductPage({ params }: ProductPageProps) {
   return (
     <div className="container mx-auto px-4 py-12">
       <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:gap-16">
-        <div className="relative aspect-square w-full overflow-hidden rounded-lg shadow-lg">
-          {placeholder && (
-            <Image
-              src={placeholder.imageUrl}
-              alt={product.name}
-              fill
-              className="object-cover"
-              sizes="(max-width: 768px) 100vw, 50vw"
-              data-ai-hint={placeholder.imageHint}
-            />
-          )}
+        <div className="flex flex-col gap-4">
+          <div className="relative aspect-square w-full overflow-hidden rounded-lg shadow-lg">
+            {mainImage && (
+              <Image
+                src={mainImage.imageUrl}
+                alt={product.name}
+                fill
+                className="object-cover"
+                sizes="(max-width: 768px) 100vw, 50vw"
+                data-ai-hint={mainImage.imageHint}
+              />
+            )}
+          </div>
+          <div className="grid grid-cols-6 gap-2">
+            {productImages.map((img) => (
+              <div
+                key={img.id}
+                className={`relative aspect-square cursor-pointer rounded-md border-2 ${mainImage?.id === img.id ? 'border-primary' : 'border-transparent'}`}
+                onClick={() => setMainImage(img)}
+              >
+                <Image
+                  src={img.imageUrl}
+                  alt={product.name}
+                  fill
+                  className="object-cover rounded-md"
+                />
+              </div>
+            ))}
+          </div>
         </div>
 
         <div className="flex flex-col gap-6">
@@ -79,6 +110,25 @@ export default function ProductPage({ params }: ProductPageProps) {
           <p className="text-base text-muted-foreground">{product.description}</p>
           
           <Separator />
+          
+          {product.sizes && product.sizes.length > 0 && (
+            <div className="flex items-center gap-4">
+              <p className="font-medium">Size:</p>
+              <div className="flex flex-wrap gap-2">
+                {product.sizes.map(size => (
+                  <Badge 
+                    key={size}
+                    variant={selectedSize === size ? 'default' : 'outline'}
+                    onClick={() => setSelectedSize(size)}
+                    className="cursor-pointer px-3 py-1 text-base"
+                  >
+                    {size}
+                  </Badge>
+                ))}
+              </div>
+            </div>
+          )}
+
 
           <div className="flex items-center gap-4">
             <p className="font-medium">Quantity:</p>

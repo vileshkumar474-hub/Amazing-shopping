@@ -11,6 +11,7 @@ export const products: Product[] = [
     rating: 4.5,
     reviewCount: 120,
     featured: true,
+    sizes: ['S', 'M', 'L', 'XL'],
   },
   {
     id: 'prod-2',
@@ -22,6 +23,7 @@ export const products: Product[] = [
     rating: 4.8,
     reviewCount: 88,
     featured: false,
+    sizes: ['6', '7', '8', '9'],
   },
   {
     id: 'prod-3',
@@ -44,6 +46,7 @@ export const products: Product[] = [
     rating: 4.4,
     reviewCount: 75,
     featured: false,
+    sizes: ['S', 'M', 'L'],
   },
   {
     id: 'prod-5',
@@ -55,6 +58,7 @@ export const products: Product[] = [
     rating: 4.9,
     reviewCount: 230,
     featured: true,
+    sizes: ['S', 'M', 'L', 'XL'],
   },
   {
     id: 'prod-6',
@@ -66,6 +70,7 @@ export const products: Product[] = [
     rating: 4.6,
     reviewCount: 180,
     featured: false,
+    sizes: ['6', '7', '8', '9', '10'],
   },
   {
     id: 'prod-7',
@@ -110,6 +115,7 @@ export const products: Product[] = [
     rating: 4.9,
     reviewCount: 140,
     featured: false,
+    sizes: ['S', 'M', 'L'],
   },
   {
     id: 'prod-11',
@@ -121,6 +127,7 @@ export const products: Product[] = [
     rating: 4.6,
     reviewCount: 90,
     featured: false,
+    sizes: ['28', '30', '32', '34'],
   },
   {
     id: 'prod-12',
@@ -143,6 +150,8 @@ export const products: Product[] = [
     rating: 4.8,
     reviewCount: 110,
     featured: false,
+    sizes: ['32', '34', '36', '38'],
+    images: ['prod-13'],
   },
   {
     id: 'prod-14',
@@ -154,6 +163,8 @@ export const products: Product[] = [
     rating: 4.7,
     reviewCount: 95,
     featured: true,
+    sizes: ['32', '34', '36', '38'],
+    images: ['prod-14'],
   },
   {
     id: 'prod-15',
@@ -165,6 +176,8 @@ export const products: Product[] = [
     rating: 4.6,
     reviewCount: 85,
     featured: false,
+    sizes: ['32', '34', '36', '38'],
+    images: ['prod-15'],
   },
   {
     id: 'prod-16',
@@ -176,7 +189,9 @@ export const products: Product[] = [
     rating: 4.6,
     reviewCount: 78,
     featured: false,
-  }
+    sizes: ['30', '32', '34', '36', '38', '40', '42'],
+    images: ['prod-16'],
+  },
 ];
 
 export const orders: Order[] = [

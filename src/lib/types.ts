@@ -8,6 +8,10 @@ export type Product = {
   rating: number;
   reviewCount: number;
   featured: boolean;
+  images?: string[]; // For multiple images
+  sizes?: string[]; // Available sizes
+  weight?: number; // in grams
+  manufacturer?: string;
 };
 
 export type CartItem = {
