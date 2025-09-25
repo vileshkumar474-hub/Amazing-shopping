@@ -165,6 +165,17 @@ export const products: Product[] = [
     rating: 4.6,
     reviewCount: 85,
     featured: false,
+  },
+  {
+    id: 'prod-16',
+    name: 'Colorful Lace Bralette Set',
+    description: 'A set of beautiful and comfortable lace bralettes in various colors. Perfect for a stylish and relaxed look.',
+    price: 599,
+    category: 'Bra & Panty Sets',
+    imageId: 'prod-16',
+    rating: 4.6,
+    reviewCount: 78,
+    featured: false,
   }
 ];
 
