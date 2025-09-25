@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Logo from '../shared/Logo';
 import { Facebook, Twitter, Instagram } from 'lucide-react';
+import VisitorCounter from '../shared/VisitorCounter';
 
 export default function Footer() {
   return (
@@ -73,8 +74,9 @@ export default function Footer() {
             </div>
           </div>
         </div>
-        <div className="mt-8 border-t pt-8 text-center text-sm text-muted-foreground">
+        <div className="mt-8 border-t pt-8 text-center text-sm text-muted-foreground flex justify-between items-center">
           <p>&copy; {new Date().getFullYear()} ShopSphere. All rights reserved.</p>
+          <VisitorCounter />
         </div>
       </div>
     </footer>
