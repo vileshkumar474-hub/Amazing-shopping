@@ -21,29 +21,22 @@ type AdminProductEditPageProps = {
     params: { id: string };
 };
 
-function AdminProductEditPageComponent({ params: paramsPromise }: AdminProductEditPageProps) {
+function AdminProductEditPageComponent({ params }: AdminProductEditPageProps) {
   const router = useRouter();
   const { toast } = useToast();
   
   const [productData, setProductData] = useState<Product | null>(null);
   const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
-  const [params, setParams] = useState<AdminProductEditPageProps['params'] | null>(null);
 
   useEffect(() => {
-    Promise.resolve(paramsPromise).then(setParams);
-  }, [paramsPromise]);
-
-  useEffect(() => {
-    if (params) {
-      const foundProduct = getProductById(params.id);
-      if (foundProduct) {
-        setProductData(foundProduct);
-        setSelectedSizes(foundProduct.sizes || []);
-      } else {
-        notFound();
-      }
+    const foundProduct = getProductById(params.id);
+    if (foundProduct) {
+      setProductData(foundProduct);
+      setSelectedSizes(foundProduct.sizes || []);
+    } else {
+      notFound();
     }
-  }, [params]);
+  }, [params.id]);
 
   if (!productData) {
     return <div>Loading...</div>;
