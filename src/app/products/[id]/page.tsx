@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, use } from 'react';
 import Image from 'next/image';
 import { notFound, useRouter } from 'next/navigation';
 import { Star, Minus, Plus, ShoppingCart, CreditCard, Tag } from 'lucide-react';
@@ -17,7 +17,8 @@ type ProductPageProps = {
   params: { id: string };
 };
 
-export default function ProductPage({ params }: ProductPageProps) {
+export default function ProductPage({ params: paramsPromise }: ProductPageProps) {
+  const params = use(Promise.resolve(paramsPromise));
   const { dispatch } = useCart();
   const { toast } = useToast();
   const router = useRouter();

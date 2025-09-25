@@ -10,11 +10,13 @@ import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Checkbox } from '@/components/ui/checkbox';
+import { use } from 'react';
 
 const sizes = ['30', '32', '34', '36', '38', '40', '42', 'S', 'M', 'L', 'XL'];
 
 
-export default function AdminProductEditPage({ params }: { params: { id: string } }) {
+export default function AdminProductEditPage({ params: paramsPromise }: { params: { id: string } }) {
+  const params = use(Promise.resolve(paramsPromise));
   const product = getProductById(params.id);
 
   if (!product) {

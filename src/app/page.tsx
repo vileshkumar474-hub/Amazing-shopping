@@ -1,36 +1,13 @@
-import { getPersonalizedRecommendations } from '@/ai/flows/personalized-product-recommendations';
-import ProductCarousel from '@/components/products/ProductCarousel';
+
 import ProductGrid from '@/components/products/ProductGrid';
 import { Button } from '@/components/ui/button';
-import { getFeaturedProducts, getProductsByIds } from '@/lib/data';
+import { getFeaturedProducts } from '@/lib/data';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import type { Product } from '@/lib/types';
 import { ArrowRight, ShoppingBag } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
-
-async function RecommendedProducts() {
-  let recommendedProducts: Product[] = [];
-  try {
-    // In a real app, you'd get the userId and history from the user's session
-    const recommendations = await getPersonalizedRecommendations({
-      userId: 'user-123',
-      browsingHistory: ['prod-1', 'prod-3'],
-      pastPurchases: ['prod-5'],
-    });
-    recommendedProducts = getProductsByIds(recommendations.productIds);
-  } catch (error) {
-    // Fallback to featured products if AI fails
-    recommendedProducts = getFeaturedProducts();
-  }
-
-  // If recommendations are empty for any reason, use featured products
-  if (recommendedProducts.length === 0) {
-    recommendedProducts = getFeaturedProducts();
-  }
-
-  return <ProductCarousel products={recommendedProducts} />;
-}
+import RecommendedProducts from '@/components/products/RecommendedProducts';
+import { Suspense } from 'react';
 
 export default function Home() {
   const heroImage = PlaceHolderImages.find((img) => img.id === 'hero-1');
@@ -101,7 +78,9 @@ export default function Home() {
               Personalized recommendations based on your activity.
             </p>
           </div>
-          <RecommendedProducts />
+          <Suspense fallback={<p className="text-center">Loading recommendations...</p>}>
+            <RecommendedProducts />
+          </Suspense>
         </div>
       </section>
     </div>
