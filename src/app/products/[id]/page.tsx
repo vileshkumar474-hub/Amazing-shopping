@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { notFound, useRouter } from 'next/navigation';
-import { Star, Minus, Plus, ShoppingCart, CreditCard } from 'lucide-react';
+import { Star, Minus, Plus, ShoppingCart, CreditCard, Tag } from 'lucide-react';
 
 import { getProductById } from '@/lib/data';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
@@ -80,6 +80,11 @@ export default function ProductPage({ params }: ProductPageProps) {
                 data-ai-hint={mainImage.imageHint}
               />
             )}
+             {product.originalPrice && (
+              <Badge className="absolute top-4 left-4 border-2 border-background text-lg" variant="destructive">
+                <Tag className="mr-2 h-5 w-5" /> SALE
+              </Badge>
+            )}
           </div>
           <div className="grid grid-cols-6 gap-2">
             {productImages.map((img) => (
@@ -121,7 +126,14 @@ export default function ProductPage({ params }: ProductPageProps) {
             </span>
           </div>
 
-          <p className="text-3xl font-bold text-primary">₹{product.price.toLocaleString()}</p>
+           <div className="flex items-baseline gap-2">
+            <p className="text-3xl font-bold text-primary">₹{product.price.toLocaleString()}</p>
+            {product.originalPrice && (
+              <p className="text-xl font-medium text-muted-foreground line-through">
+                ₹{product.originalPrice.toLocaleString()}
+              </p>
+            )}
+          </div>
 
           <p className="text-base text-muted-foreground">{product.description}</p>
 
