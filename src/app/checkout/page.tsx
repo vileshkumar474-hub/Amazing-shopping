@@ -10,10 +10,9 @@ import { Separator } from '@/components/ui/separator';
 import { useCart } from '@/context/CartProvider';
 import { useRouter } from 'next/navigation';
 import { useToast } from '@/hooks/use-toast';
-import Script from 'next/script';
 import { useUser } from '@/firebase';
-
-const RAZORPAY_KEY_ID = process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID;
+import { orders } from '@/lib/data';
+import shortid from 'shortid';
 
 export default function CheckoutPage() {
   const { state, dispatch } = useCart();
@@ -26,66 +25,47 @@ export default function CheckoutPage() {
 
   const makePayment = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!RAZORPAY_KEY_ID) {
-      toast({
-        variant: 'destructive',
-        title: 'Configuration Error',
-        description: 'Razorpay Key ID is not configured.',
-      });
-      return;
-    }
 
-    const res = await fetch('/api/razorpay', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ amount: total }),
+    const upiId = '9711837666-2@axl';
+    const payeeName = 'Amazon.in';
+    const transactionNote = `Payment for your order`;
+    const orderId = `order_${shortid.generate()}`;
+
+    const upiUrl = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(
+      payeeName
+    )}&am=${total.toFixed(2)}&cu=INR&tn=${encodeURIComponent(
+      transactionNote
+    )}&tr=${orderId}`;
+    
+    // In a real app, you would save the pending order to your database here.
+    // For this demo, we'll optimistically create the order in our local data.
+    orders.push({
+      id: orderId,
+      date: new Date().toISOString(),
+      total: total,
+      status: 'Processing',
+      items: state.items,
+    });
+    
+    dispatch({ type: 'CLEAR_CART' });
+    
+    toast({
+      title: 'Redirecting to UPI app',
+      description: 'Please complete the payment in your UPI app to confirm the order.',
     });
 
-    if (!res.ok) {
-      toast({
-        variant: 'destructive',
-        title: 'Error creating order',
-        description: 'There was a problem with the payment provider.',
-      });
-      return;
-    }
+    // Redirect to UPI app
+    window.location.href = upiUrl;
 
-    const order = await res.json();
-
-    const options = {
-      key: RAZORPAY_KEY_ID,
-      name: 'Amazon.in',
-      currency: order.currency,
-      amount: order.amount,
-      order_id: order.id,
-      description: 'Your Amazon.in Purchase',
-      handler: function (response: any) {
-        toast({
-          title: 'Payment Successful!',
-          description: `Payment ID: ${response.razorpay_payment_id}`,
-        });
-        dispatch({ type: 'CLEAR_CART' });
-        router.push(`/orders/${order.id}`);
-      },
-      prefill: {
-        name: user?.displayName || 'Amazon User',
-        email: user?.email || '',
-      },
-      theme: {
-        color: '#12544F' // Corresponds to hsl(180, 100%, 25%)
-      }
-    };
-    
-    // @ts-ignore
-    const paymentObject = new window.Razorpay(options);
-    paymentObject.open();
+    // A small delay to allow the UPI app to open before redirecting to the order page.
+    // In a real app, you'd have a webhook or a "check status" button to confirm payment.
+    setTimeout(() => {
+        router.push(`/orders/${orderId}`);
+    }, 2000);
   };
 
   return (
     <>
-      <Script id="razorpay-checkout-js" src="https://checkout.razorpay.com/v1/checkout.js" />
       <div className="container mx-auto px-4 py-12">
         <h1 className="mb-8 text-center text-4xl font-bold">Checkout</h1>
         <form onSubmit={makePayment} className="grid grid-cols-1 gap-8 md:grid-cols-3">
@@ -139,12 +119,12 @@ export default function CheckoutPage() {
                 <CardTitle>Payment Method</CardTitle>
               </CardHeader>
               <CardContent>
-                <RadioGroup defaultValue="razorpay" className="space-y-4">
+                <RadioGroup defaultValue="upi" className="space-y-4">
                   <Label className="flex items-center space-x-3 rounded-md border p-4">
-                    <RadioGroupItem value="razorpay" id="razorpay" />
+                    <RadioGroupItem value="upi" id="upi" />
                     <div className="flex flex-col">
-                      <span>Razorpay</span>
-                      <span className="text-sm text-muted-foreground">Pay with Card, UPI, etc.</span>
+                      <span>UPI (Direct Payment)</span>
+                      <span className="text-sm text-muted-foreground">Pay with any UPI app.</span>
                     </div>
                   </Label>
                 </RadioGroup>
