@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
@@ -13,6 +14,17 @@ import { useToast } from '@/hooks/use-toast';
 import { useUser } from '@/firebase';
 import { orders } from '@/lib/data';
 import shortid from 'shortid';
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 
 export default function CheckoutPage() {
   const { state, dispatch } = useCart();
@@ -23,20 +35,12 @@ export default function CheckoutPage() {
   const subtotal = state.items.reduce((acc, item) => acc + item.price * item.quantity, 0);
   const total = subtotal + (subtotal > 0 ? 50 : 0);
 
-  const makePayment = async (e: React.FormEvent) => {
-    e.preventDefault();
-
+  const handlePlaceOrder = async () => {
     const upiId = '9711837666-2@axl';
     const payeeName = 'Amazon.in';
     const transactionNote = `Payment for your order`;
     const orderId = `order_${shortid.generate()}`;
 
-    const upiUrl = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(
-      payeeName
-    )}&am=${total.toFixed(2)}&cu=INR&tn=${encodeURIComponent(
-      transactionNote
-    )}&tr=${orderId}`;
-    
     // In a real app, you would save the pending order to your database here.
     // For this demo, we'll optimistically create the order in our local data.
     orders.push({
@@ -54,6 +58,12 @@ export default function CheckoutPage() {
       description: 'Please complete the payment in your UPI app to confirm the order.',
     });
 
+    const upiUrl = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(
+      payeeName
+    )}&am=${total.toFixed(2)}&cu=INR&tn=${encodeURIComponent(
+      transactionNote
+    )}&tr=${orderId}`;
+
     // Redirect to UPI app
     window.location.href = upiUrl;
 
@@ -68,7 +78,7 @@ export default function CheckoutPage() {
     <>
       <div className="container mx-auto px-4 py-12">
         <h1 className="mb-8 text-center text-4xl font-bold">Checkout</h1>
-        <form onSubmit={makePayment} className="grid grid-cols-1 gap-8 md:grid-cols-3">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
           <div className="md:col-span-2">
             <Card>
               <CardHeader>
@@ -164,11 +174,29 @@ export default function CheckoutPage() {
                 </div>
               </CardContent>
             </Card>
-            <Button type="submit" size="lg" className="mt-6 w-full bg-accent text-accent-foreground hover:bg-accent/90" disabled={state.items.length === 0}>
-              Place Order
-            </Button>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <Button size="lg" className="mt-6 w-full bg-accent text-accent-foreground hover:bg-accent/90" disabled={state.items.length === 0}>
+                  Place Order
+                </Button>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Confirm Your Order</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    You will be redirected to your UPI app to complete the payment of ₹{total.toLocaleString()}. The cart will be cleared.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction onClick={handlePlaceOrder}>
+                    Confirm & Pay
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
           </div>
-        </form>
+        </div>
       </div>
     </>
   );
