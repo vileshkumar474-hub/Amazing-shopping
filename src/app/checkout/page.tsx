@@ -111,9 +111,42 @@ export default function CheckoutPage() {
                         <SelectValue placeholder="Select State" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="MH">Maharashtra</SelectItem>
+                        <SelectItem value="AN">Andaman & Nicobar Islands</SelectItem>
+                        <SelectItem value="AP">Andhra Pradesh</SelectItem>
+                        <SelectItem value="AR">Arunachal Pradesh</SelectItem>
+                        <SelectItem value="AS">Assam</SelectItem>
+                        <SelectItem value="BR">Bihar</SelectItem>
+                        <SelectItem value="CH">Chandigarh</SelectItem>
+                        <SelectItem value="CT">Chhattisgarh</SelectItem>
+                        <SelectItem value="DN">Dadra & Nagar Haveli and Daman & Diu</SelectItem>
                         <SelectItem value="DL">Delhi</SelectItem>
+                        <SelectItem value="GA">Goa</SelectItem>
+                        <SelectItem value="GJ">Gujarat</SelectItem>
+                        <SelectItem value="HR">Haryana</SelectItem>
+                        <SelectItem value="HP">Himachal Pradesh</SelectItem>
+                        <SelectItem value="JK">Jammu & Kashmir</SelectItem>
+                        <SelectItem value="JH">Jharkhand</SelectItem>
                         <SelectItem value="KA">Karnataka</SelectItem>
+                        <SelectItem value="KL">Kerala</SelectItem>
+                        <SelectItem value="LA">Ladakh</SelectItem>
+                        <SelectItem value="LD">Lakshadweep</SelectItem>
+                        <SelectItem value="MP">Madhya Pradesh</SelectItem>
+                        <SelectItem value="MH">Maharashtra</SelectItem>
+                        <SelectItem value="MN">Manipur</SelectItem>
+                        <SelectItem value="ML">Meghalaya</SelectItem>
+                        <SelectItem value="MZ">Mizoram</SelectItem>
+                        <SelectItem value="NL">Nagaland</SelectItem>
+                        <SelectItem value="OR">Odisha</SelectItem>
+                        <SelectItem value="PY">Puducherry</SelectItem>
+                        <SelectItem value="PB">Punjab</SelectItem>
+                        <SelectItem value="RJ">Rajasthan</SelectItem>
+                        <SelectItem value="SK">Sikkim</SelectItem>
+                        <SelectItem value="TN">Tamil Nadu</SelectItem>
+                        <SelectItem value="TG">Telangana</SelectItem>
+                        <SelectItem value="TR">Tripura</SelectItem>
+                        <SelectItem value="UP">Uttar Pradesh</SelectItem>
+                        <SelectItem value="UT">Uttarakhand</SelectItem>
+                        <SelectItem value="WB">West Bengal</SelectItem>
                       </SelectContent>
                     </Select>
                   </div>
