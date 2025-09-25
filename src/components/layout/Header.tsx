@@ -10,7 +10,7 @@ import Link from 'next/link';
 import Logo from '../shared/Logo';
 import { Button } from '../ui/button';
 import { Input } from '../ui/input';
-import { Sheet, SheetContent, SheetTrigger } from '../ui/sheet';
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from '../ui/sheet';
 import { useCart } from '@/context/CartProvider';
 import { Badge } from '../ui/badge';
 import { useRouter } from 'next/navigation';
@@ -63,6 +63,7 @@ export default function Header() {
               </Button>
             </SheetTrigger>
             <SheetContent side="left">
+              <SheetTitle className="sr-only">Navigation Menu</SheetTitle>
               <Logo className="mb-8" />
               <nav className="grid gap-6 text-lg font-medium">
                 {navLinks.map((link) => (
