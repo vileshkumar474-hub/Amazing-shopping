@@ -1,3 +1,5 @@
+'use client';
+
 import { notFound } from 'next/navigation';
 import Image from 'next/image';
 import { getOrderById } from '@/lib/data';
@@ -6,7 +8,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
 import { CheckCircle, Circle, Package, Truck } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import { use } from 'react';
+import { useState, useEffect, Suspense } from 'react';
+import type { Order } from '@/lib/types';
 
 type OrderPageProps = {
   params: { id: string };
@@ -14,16 +17,30 @@ type OrderPageProps = {
 
 const statusSteps = ['Processing', 'Shipped', 'Delivered'];
 
-export default function OrderPage({ params: paramsPromise }: OrderPageProps) {
-  const params = use(Promise.resolve(paramsPromise));
-  const order = getOrderById(params.id);
+function OrderPageComponent({ params: paramsPromise }: OrderPageProps) {
+  const [order, setOrder] = useState<Order | null>(null);
+  const [params, setParams] = useState<OrderPageProps['params'] | null>(null);
+
+  useEffect(() => {
+    Promise.resolve(paramsPromise).then(setParams);
+  }, [paramsPromise]);
+
+  useEffect(() => {
+    if (params) {
+      const foundOrder = getOrderById(params.id);
+      if (foundOrder) {
+        setOrder(foundOrder);
+      } else {
+        notFound();
+      }
+    }
+  }, [params]);
 
   if (!order) {
-    notFound();
+    return <div>Loading...</div>;
   }
 
   const orderIdSuffix = order.id.startsWith('order_') ? order.id.substring(6) : order.id.split('-')[1] || order.id;
-
   const currentStatusIndex = statusSteps.indexOf(order.status);
 
   return (
@@ -87,5 +104,13 @@ export default function OrderPage({ params: paramsPromise }: OrderPageProps) {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function OrderPage(props: OrderPageProps) {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <OrderPageComponent {...props} />
+    </Suspense>
   );
 }

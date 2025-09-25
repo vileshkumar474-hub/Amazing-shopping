@@ -1,6 +1,6 @@
 'use client';
 
-import { use, useState } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import { notFound, useRouter } from 'next/navigation';
 import { getProductById, products } from '@/lib/data';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -17,23 +17,39 @@ import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 const sizes = ['30', '32', '34', '36', '38', '40', '42', 'S', 'M', 'L', 'XL'];
 
+type AdminProductEditPageProps = {
+    params: { id: string };
+};
 
-export default function AdminProductEditPage({ params: paramsPromise }: { params: { id: string } }) {
-  const params = use(Promise.resolve(paramsPromise));
-  const product = getProductById(params.id);
-  
+function AdminProductEditPageComponent({ params: paramsPromise }: AdminProductEditPageProps) {
   const router = useRouter();
   const { toast } = useToast();
+  
+  const [productData, setProductData] = useState<Product | null>(null);
+  const [selectedSizes, setSelectedSizes] = useState<string[]>([]);
+  const [params, setParams] = useState<AdminProductEditPageProps['params'] | null>(null);
 
-  const [productData, setProductData] = useState<Product | undefined>(product);
-  const [selectedSizes, setSelectedSizes] = useState<string[]>(product?.sizes || []);
+  useEffect(() => {
+    Promise.resolve(paramsPromise).then(setParams);
+  }, [paramsPromise]);
+
+  useEffect(() => {
+    if (params) {
+      const foundProduct = getProductById(params.id);
+      if (foundProduct) {
+        setProductData(foundProduct);
+        setSelectedSizes(foundProduct.sizes || []);
+      } else {
+        notFound();
+      }
+    }
+  }, [params]);
 
   if (!productData) {
-    notFound();
+    return <div>Loading...</div>;
   }
   
   const placeholder = PlaceHolderImages.find((p) => p.id === productData.imageId);
-
 
   const handleSizeChange = (size: string, checked: boolean) => {
     if (checked) {
@@ -57,14 +73,11 @@ export default function AdminProductEditPage({ params: paramsPromise }: { params
         return;
     }
     
-    // In a real app, you would upload the image and get a URL.
-    // For now, we'll just pick a random placeholder if a new file is selected.
     const imageFile = formData.get('image') as File;
     let imageId = productData.imageId;
     if (imageFile && imageFile.size > 0) {
         imageId = `prod-${(products.length % 16) + 1}`;
     }
-
 
     const updatedProduct: Product = {
         ...productData,
@@ -78,7 +91,7 @@ export default function AdminProductEditPage({ params: paramsPromise }: { params
         weight: Number(formData.get('weight')),
         manufacturer: formData.get('manufacturer') as string,
         imageId: imageId,
-        images: [imageId], // Assuming single image update for simplicity
+        images: [imageId],
     };
 
     products[productIndex] = updatedProduct;
@@ -184,4 +197,13 @@ export default function AdminProductEditPage({ params: paramsPromise }: { params
       </form>
     </div>
   );
+}
+
+
+export default function AdminProductEditPage(props: AdminProductEditPageProps) {
+    return (
+      <Suspense fallback={<div>Loading...</div>}>
+        <AdminProductEditPageComponent {...props} />
+      </Suspense>
+    );
 }

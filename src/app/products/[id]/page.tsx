@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, use } from 'react';
+import { useState, useEffect, Suspense } from 'react';
 import Image from 'next/image';
 import { notFound, useRouter } from 'next/navigation';
 import { Star, Minus, Plus, ShoppingCart, CreditCard, Tag } from 'lucide-react';
@@ -12,30 +12,50 @@ import { useCart } from '@/context/CartProvider';
 import { useToast } from '@/hooks/use-toast';
 import { Separator } from '@/components/ui/separator';
 import { Badge } from '@/components/ui/badge';
+import type { Product } from '@/lib/types';
 
 type ProductPageProps = {
   params: { id: string };
 };
 
-export default function ProductPage({ params: paramsPromise }: ProductPageProps) {
-  const params = use(Promise.resolve(paramsPromise));
+function ProductPageComponent({ params: paramsPromise }: ProductPageProps) {
   const { dispatch } = useCart();
   const { toast } = useToast();
   const router = useRouter();
   const [quantity, setQuantity] = useState(1);
   const [selectedSize, setSelectedSize] = useState<string | undefined>();
+  const [product, setProduct] = useState<Product | null>(null);
+  const [params, setParams] = useState<ProductPageProps['params'] | null>(null);
 
-  const product = getProductById(params.id);
+  useEffect(() => {
+    Promise.resolve(paramsPromise).then(setParams);
+  }, [paramsPromise]);
+
+  useEffect(() => {
+    if (params) {
+      const foundProduct = getProductById(params.id);
+      if (foundProduct) {
+        setProduct(foundProduct);
+      } else {
+        notFound();
+      }
+    }
+  }, [params]);
+
+  const productImages = product?.images ? PlaceHolderImages.filter(p => product.images?.includes(p.id)) : [];
+  const initialImage = product ? PlaceHolderImages.find(p => p.id === product.imageId) : undefined;
+  const [mainImage, setMainImage] = useState(productImages[0] || initialImage);
+  
+  useEffect(() => {
+      const initialImg = product ? (PlaceHolderImages.filter(p => product.images?.includes(p.id))[0] || PlaceHolderImages.find(p => p.id === product.imageId)) : undefined;
+      setMainImage(initialImg);
+  }, [product]);
+
 
   if (!product) {
-    notFound();
+    return <div>Loading...</div>;
   }
-
-  const placeholder = PlaceHolderImages.find((p) => p.id === product.imageId);
-  const productImages = product.images ? PlaceHolderImages.filter(p => product.images?.includes(p.id)) : (placeholder ? [placeholder] : []);
-  const [mainImage, setMainImage] = useState(productImages[0] || placeholder);
-
-
+  
   const handleAddToCart = () => {
     if (product.sizes && product.sizes.length > 0 && !selectedSize) {
       toast({
@@ -201,5 +221,13 @@ export default function ProductPage({ params: paramsPromise }: ProductPageProps)
         </div>
       </div>
     </div>
+  );
+}
+
+export default function ProductPage(props: ProductPageProps) {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ProductPageComponent {...props} />
+    </Suspense>
   );
 }
