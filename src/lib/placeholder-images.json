@@ -2,9 +2,9 @@
   "placeholderImages": [
     {
       "id": "hero-1",
-      "description": "A vibrant scene of a festival sale with people shopping.",
-      "imageUrl": "https://images.unsplash.com/photo-1696165333477-f85bd9a43072?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwxfHxzaG9wcGluZyUyMGZlc3RpdmFsfGVufDB8fHx8MTc1ODc3NTczMHww&ixlib=rb-4.1.0&q=80&w=1080",
-      "imageHint": "shopping festival"
+      "description": "Boxes from an online order delivered to a front door.",
+      "imageUrl": "https://images.unsplash.com/photo-1599057419102-60d3f76906a5?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHwzfHxvbmxpbmUlMjBzaG9wcGluZyUyMGRlbGl2ZXJ5fGVufDB8fHx8MTc1OTQ2MzE4N3ww&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "online shopping"
     },
     {
       "id": "prod-1",

@@ -75,7 +75,7 @@ export default function Footer() {
           </div>
         </div>
         <div className="mt-8 border-t pt-8 text-center text-sm text-muted-foreground flex justify-between items-center">
-          <p>&copy; {new Date().getFullYear()} ShopSphere. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Amazon.com. All rights reserved.</p>
           <VisitorCounter />
         </div>
       </div>
