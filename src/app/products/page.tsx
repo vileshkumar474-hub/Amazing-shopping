@@ -1,20 +1,29 @@
 'use client';
 
-import { Suspense } from 'react';
-import { useSearchParams } from 'next/navigation';
-import { products } from '@/lib/data';
+import { Suspense, useEffect, useState } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import { products as initialProducts } from '@/lib/data';
 import type { Product } from '@/lib/types';
 import ProductGrid from '@/components/products/ProductGrid';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Input } from '@/components/ui/input';
 
-const categories = ['All', ...new Set(products.map(p => p.category))];
+const categories = ['All', ...new Set(initialProducts.map(p => p.category))];
 
 function ProductsPageContent() {
+  const router = useRouter();
   const searchParams = useSearchParams();
-  const category = searchParams.get('category');
-  const searchQuery = searchParams.get('search');
-  const sort = searchParams.get('sort');
+  const [products, setProducts] = useState(initialProducts);
+
+  // This effect will run on the client side and ensure our product list is up-to-date
+  // if it has been modified elsewhere (like the add product page).
+  useEffect(() => {
+    setProducts(initialProducts);
+  }, []);
+
+  const category = searchParams.get('category') || 'All';
+  const searchQuery = searchParams.get('search') || '';
+  const sort = searchParams.get('sort') || 'relevance';
 
   let filteredProducts: Product[] = products;
 
@@ -34,20 +43,16 @@ function ProductsPageContent() {
     filteredProducts.sort((a, b) => b.rating - a.rating);
   }
 
-  // A simple way to update URL search params without a full page reload
   const handleFilterChange = (key: string, value: string) => {
     const current = new URLSearchParams(Array.from(searchParams.entries()));
-    if (!value || value === 'All') {
+    if (!value || value === 'All' || (key === 'sort' && value === 'relevance')) {
       current.delete(key);
     } else {
       current.set(key, value);
     }
     const search = current.toString();
     const query = search ? `?${search}` : "";
-    window.history.pushState(null, '', `/products${query}`);
-    // This is a simple implementation. In a real app, you'd want to trigger a re-render.
-    // For this demo, we rely on the user to manually refresh or navigation to trigger updates.
-    // A better approach would be to use state and `router.push`.
+    router.push(`/products${query}`);
   };
 
   return (
@@ -62,13 +67,13 @@ function ProductsPageContent() {
           <Input 
             type="search" 
             placeholder="Search by name..." 
-            defaultValue={searchQuery || ''}
+            value={searchQuery}
             onChange={(e) => handleFilterChange('search', e.target.value)}
             className="w-full"
           />
         </div>
         <div className="flex items-center gap-4">
-          <Select defaultValue={category || 'All'} onValueChange={(value) => handleFilterChange('category', value)}>
+          <Select value={category} onValueChange={(value) => handleFilterChange('category', value)}>
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Category" />
             </SelectTrigger>
@@ -78,7 +83,7 @@ function ProductsPageContent() {
               ))}
             </SelectContent>
           </Select>
-          <Select defaultValue={sort || 'relevance'} onValueChange={(value) => handleFilterChange('sort', value)}>
+          <Select value={sort} onValueChange={(value) => handleFilterChange('sort', value)}>
             <SelectTrigger className="w-[180px]">
               <SelectValue placeholder="Sort by" />
             </SelectTrigger>
